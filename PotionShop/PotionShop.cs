@@ -9,13 +9,16 @@ namespace PotionShop
     class PotionShop
     {
         Player player;
-        Store store;
+        Store store = new Store();
         Weather weather = new Weather();
         Danger danger = new Danger();
+        Market market = new Market();
+        string nameMessage = "Alright, I just need one more signature before your grand opening.\nJust sign your name here:";
+        string storeMessage = "Okay good.\nAnd before I leave, let me just make sure I have the name of your shop right.";
         public PotionShop()
         {
         }
-
+        //The Launcher works, don't touch it
         public void LaunchGame()
         {
             bool exit = false;
@@ -52,13 +55,32 @@ namespace PotionShop
         }
         public void CreateGame()
         {
-            Console.WriteLine("Alright, I just need one more signature before your grand opening.\nJust sign your name here:");
+            Console.WriteLine(nameMessage);
             player = new Player();
-            Console.WriteLine("Okay good.\nAnd before I leave, let me just make sure I have the name of your shop right.");
+            Console.WriteLine(storeMessage);
             store = new Store();
-            Console.WriteLine("Very well then, {0}'s {1}.\nI do say it has a nice ring to it.\nBest of luck, I'll be back next week to check on your progress.\nUntil then...", player.name, store.name);
-            Console.ReadLine();
-            BeginGame();
+            Console.WriteLine("Very well then, {0}'s {1}.\nDoes that sound right to you?", player.name, store.name);
+            string response = Console.ReadLine().ToUpper();
+            if (response == "YES")
+            {
+                Console.WriteLine("Fantastic, {0}'s {1}!\nDare it if I may say so, but it does sound as if it has a certain ring to it, doesn't it?.\nAh well..\nBest of luck to you, I'll be back next week to check on your progress.", player.name, store.name);
+                Console.ReadLine();
+                BeginGame();
+            }
+            else if (response == "NO")
+            {
+                nameMessage = ("Your name again?");                
+                storeMessage = ("And the name of your store?");
+                CreateGame();
+            }
+            else
+            {
+                Console.WriteLine("It was a yes or no question.");
+                nameMessage = ("What is your NAME?");
+                storeMessage = ("And what do you want to call your STORE?");
+                CreateGame();
+            }
+            
         }
         public void RunTutorial()
         {
@@ -97,12 +119,12 @@ namespace PotionShop
             int currentTemp = weather.SetTemp();
             string todaysClimate = weather.SetClimate(currentTemp);
             int currentThreat = danger.SetThreat();
-            Console.WriteLine("The weather is expected to be {0} today with a temperature of {1}.", todaysClimate, currentTemp );
+            Console.WriteLine("The weather is expected to be {0} today with a temperature of {1}.", todaysClimate, currentTemp);
             StockHealthPotion();
         }
         public void StockHealthPotion()
         {
-            Console.WriteLine("How many health potions should be brewed today?");
+            Console.WriteLine("You have {0} and {1}s\nHow many health potions should be brewed today?", player.healthJuice, player.bottles);
             player.ChooseQuantity();
             StockManaPotion();
         }
@@ -118,7 +140,7 @@ namespace PotionShop
             while (!exit)
             {
                 Console.WriteLine("Lemonade?");
-                string reply = Console.ReadLine().ToUpper(); 
+                string reply = Console.ReadLine().ToUpper();
                 if (reply == "YES")
                 {
                     Console.WriteLine("Then let's make some LEMONADE!!!\nHow much lemonade should we make today?");

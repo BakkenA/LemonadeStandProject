@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Customer.cs" />
     <Compile Include="Danger.cs" />
+    <Compile Include="Market.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PotionShop.cs" />
     <Compile Include="Program.cs" />

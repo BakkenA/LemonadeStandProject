@@ -9,11 +9,13 @@ namespace PotionShop
     public class Store
     {
         public string name;
-        int daysOpen = 0;
-        int budget = 100;
+        public int daysOpen;
+        public int budget;
         public Store()
         {
             this.name = NameStore();
+            this.daysOpen = 0;
+            this.budget = 100;
         }
         public string NameStore()
         {
@@ -23,6 +25,10 @@ namespace PotionShop
         public void BeginDay()
         {
             daysOpen++;
+        }
+        public void AlterBudget()
+        {
+            
         }
         public void CheckDay()
         {
