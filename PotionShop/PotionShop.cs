@@ -11,6 +11,7 @@ namespace PotionShop
         Player player;
         Store store;
         Weather weather = new Weather();
+        Danger danger = new Danger();
         public PotionShop()
         {
         }
@@ -92,9 +93,10 @@ namespace PotionShop
         }
         public void CheckReport()
         {
+            Console.Clear();
             int currentTemp = weather.SetTemp();
             string todaysClimate = weather.SetClimate(currentTemp);
-            Console.Clear();
+            int currentThreat = danger.SetThreat();
             Console.WriteLine("The weather is expected to be {0} today with a temperature of {1}.", todaysClimate, currentTemp );
             StockHealthPotion();
         }
