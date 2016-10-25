@@ -8,5 +8,47 @@ namespace PotionShop
 {
     class Weather
     {
+        Random random;
+        int[] climate = new int[] { 0, 1, 2, 3 };        
+
+        public int SetTemp()
+        {
+            random = new Random();
+            int temp = random.Next(0, 101);
+            return temp;
+        }
+        public string SetClimate(int currentTemp)
+        {
+            string todaysClimate;
+            random = new Random();
+            int currentClimate = random.Next(0, 3);
+            if (currentClimate == 0)
+            {
+                todaysClimate = "Clear Skies";
+                return todaysClimate;
+            }
+            else if (currentClimate == 1)
+            {
+                todaysClimate = "Partially Cloudy";
+                return todaysClimate;
+            }
+            else if (currentClimate == 2)
+            {
+                todaysClimate = "Cloudy";
+                return todaysClimate;
+            }
+            else
+            {
+                if (currentTemp <= 30)
+                {
+                    todaysClimate = "Snowy";
+                }
+                else
+                {
+                    todaysClimate = "Rainy";
+                }
+                return todaysClimate;                
+            }
+        }
     }
 }

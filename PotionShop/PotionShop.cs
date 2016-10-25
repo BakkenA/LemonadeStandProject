@@ -10,6 +10,7 @@ namespace PotionShop
     {
         Player player;
         Store store;
+        Weather weather = new Weather();
         public PotionShop()
         {
         }
@@ -91,8 +92,10 @@ namespace PotionShop
         }
         public void CheckReport()
         {
+            int currentTemp = weather.SetTemp();
+            string todaysClimate = weather.SetClimate(currentTemp);
             Console.Clear();
-            Console.WriteLine("The weather is expected to be {0} today.");
+            Console.WriteLine("The weather is expected to be {0} today with a temperature of {1}.", todaysClimate, currentTemp );
             StockHealthPotion();
         }
         public void StockHealthPotion()
