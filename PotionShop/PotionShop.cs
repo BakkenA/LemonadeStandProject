@@ -9,7 +9,7 @@ namespace PotionShop
     class PotionShop
     {
         Player player;
-        Store store = new Store();
+        Store store;
         Weather weather = new Weather();
         Danger danger = new Danger();
         Market market = new Market();
@@ -36,6 +36,11 @@ namespace PotionShop
                     Console.Clear();
                     RunTutorial();
                 }
+                else if (menuChoice == "HINT")
+                {
+                    Console.Clear();
+                    DisplayHint();
+                }
                 else if (menuChoice == "666")
                 {
                     Console.Clear();
@@ -53,6 +58,7 @@ namespace PotionShop
                 }
             }
         }
+        //CreateGame is working, don't touch this either
         public void CreateGame()
         {
             Console.WriteLine(nameMessage);
@@ -85,6 +91,13 @@ namespace PotionShop
         public void RunTutorial()
         {
             Console.WriteLine("This is Potion Shop a game based on the 1979 Apple II classic Lemonade Stand.\nIn this game you are the proud proprietor of a new potion shop in the town of Pritzlaffburg.\nPritzlaffburg has a large population of adventurers.\nThese adventurers have created a large demand for health potions and mana potions.\nYour shop exists to satisfy that demand, and to make you rich in the process!\nAt the end of each day you'll be able to choose how to allocate your funds in order to operate the next day.\nAfter the first day you'll be able to stock your shelves as you see fit based on the materials you have.\nIt would be wise to take the day's forecast into account before choosing what to stock.\nYou have seven days to make the most money out of your initial inventory.\nGOOD LUCK!!!");
+            Console.ReadLine();
+            Console.Clear();
+            LaunchGame();
+        }
+        public void DisplayHint()
+        {
+            Console.WriteLine("When danger appears high, they want to buy...");
             Console.ReadLine();
             Console.Clear();
             LaunchGame();
@@ -124,14 +137,18 @@ namespace PotionShop
         }
         public void StockHealthPotion()
         {
-            Console.WriteLine("You have {0} and {1}s\nHow many health potions should be brewed today?", player.healthJuice, player.bottles);
+            Console.WriteLine("You have {0} health concentrate and {1} cups of sugar and {2} bottles.\nHow many health potions should be brewed today?", player.healthJuice, player.sugar, player.bottles);
             player.ChooseQuantity();
+            player.BrewHealthPotions();
+            store.healthPotions = player.healthPotion;
             StockManaPotion();
         }
         public void StockManaPotion()
-        {
-            Console.WriteLine("How many mana potions should be brewed today?");
+        { 
+            Console.WriteLine("You have {0} mana concentrate, {1} cups of sugar and {2} bottles.\nHow many mana potions should be brewed today?", player.manaJuice, player.sugar, player.bottles);
             player.ChooseQuantity();
+            player.BrewManaPotions();
+            store.manaPotions = player.manaPotion;
             StockLemonade();
         }
         public void StockLemonade()
@@ -143,8 +160,10 @@ namespace PotionShop
                 string reply = Console.ReadLine().ToUpper();
                 if (reply == "YES")
                 {
-                    Console.WriteLine("Then let's make some LEMONADE!!!\nHow much lemonade should we make today?");
+                    Console.WriteLine("Then let's make some LEMONADE!!!\nOkay...\nYou have {0} lemons, {1} cups of sugar and {2} bottles.\nHow much lemonade are we willing to make today?", player.lemons, player.sugar, player.bottles);
                     player.ChooseQuantity();
+                    player.BrewLemonade();
+                    store.lemonades = player.lemonade;
                     RunDay();
                 }
                 else if (reply == "NO")
@@ -158,7 +177,7 @@ namespace PotionShop
                 }
                 else
                 {
-                    Console.WriteLine("I meant do you want to make any lemonade today.\nYes or No?");
+                    Console.WriteLine("I meant, do you want to MAKE any LEMONADE today!\nYes or No?");
                 }
             }
         }
