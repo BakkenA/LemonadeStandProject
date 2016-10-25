@@ -138,7 +138,6 @@ namespace PotionShop
         public void StockHealthPotion()
         {
             Console.WriteLine("You have {0} health concentrate and {1} cups of sugar and {2} bottles.\nHow many health potions should be brewed today?", player.healthJuice, player.sugar, player.bottles);
-            player.ChooseQuantity();
             player.BrewHealthPotions();
             store.healthPotions = player.healthPotion;
             StockManaPotion();
@@ -146,7 +145,6 @@ namespace PotionShop
         public void StockManaPotion()
         { 
             Console.WriteLine("You have {0} mana concentrate, {1} cups of sugar and {2} bottles.\nHow many mana potions should be brewed today?", player.manaJuice, player.sugar, player.bottles);
-            player.ChooseQuantity();
             player.BrewManaPotions();
             store.manaPotions = player.manaPotion;
             StockLemonade();

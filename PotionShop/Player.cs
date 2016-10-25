@@ -43,46 +43,49 @@ namespace PotionShop
         //{
         //
         //}
-        public int ChooseQuantity()
+        public void ChooseQuantity()
         {
-            int quantity;
+            int input;
             bool exit = false;
             while (!exit)
             {
-                if (Int32.TryParse(Console.ReadLine(), out quantity))
+                if (Int32.TryParse(Console.ReadLine(), out input))
                 {
-                    return quantity;
+                    quantity = input;
+                    exit = true;
                 }
                 else
                 {
                     Console.WriteLine("INVALID QUANTITY\nPlease try again.");
                 }
             }
-            return -1;
         }
         public void BrewHealthPotions()
         {
-            if(healthJuice >= 2*quantity && sugar >= 1*quantity && bottles >= 1*quantity)
+            ChooseQuantity();
+            if (healthJuice >= 2*quantity && sugar >= 1*quantity && bottles >= 1*quantity)
             {
-                healthJuice =- 2*quantity;
-                sugar =- 1*quantity;
-                bottles =- 1*quantity;
+                healthJuice -= 2*quantity;
+                sugar -= 1*quantity;
+                bottles -= 1*quantity;
                 healthPotion = 1*quantity;
             }
             else
             {
-                if(2*quantity/healthJuice < 1)
+                if((2*quantity)/healthJuice < 1)
                 {
                     Console.WriteLine("Sorry you don't have enough health concentrate.");
                 }
-                if(1*quantity/sugar < 1)
+                if((1*quantity)/sugar < 1)
                 {
                     Console.WriteLine("Sorry you don't have enough sugar.");
                 }
-                if(1*quantity/bottles < 1)
+                if((1*quantity)/bottles < 1)
                 {
-                    Console.WriteLine("Sorry you don't have enough bottles for that.");
+                    Console.WriteLine("Sorry you don't have enough bottles.");
                 }
+                Console.WriteLine("Choose a different quantity.");
+                BrewHealthPotions();
             }
         }
         public void BrewManaPotions()
@@ -96,7 +99,7 @@ namespace PotionShop
             }
             else
             {
-                if (2 * quantity / healthJuice < 1)
+                if (2 * quantity > healthJuice)//Change all of these to this format ADAM!!!
                 {
                     Console.WriteLine("Sorry you don't have enough mana concentrate.");
                 }
