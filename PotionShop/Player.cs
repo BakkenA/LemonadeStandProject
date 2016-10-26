@@ -8,7 +8,8 @@ namespace PotionShop
 {
     public class Player
     {
-        
+
+        public Store store;
         public string name;
         public int manaJuice;
         public int healthJuice;
@@ -20,7 +21,7 @@ namespace PotionShop
         public int healthPotion;
         public int manaPotion;
         public int lemonade;
-        public Player()
+        public Player(string message)
         {
             this.money = 200;
             this.manaJuice = 6;
@@ -31,19 +32,15 @@ namespace PotionShop
             this.healthPotion = 0;
             this.manaPotion = 0;
             this.lemonade = 0;
-            this.name = NamePlayer();
+            NamePlayer();
+            Console.WriteLine(message);
+            store = new Store();
         }
-        public string NamePlayer()
+        public void NamePlayer()
         {
             name = Console.ReadLine();
-            return name;
         }
-
-        //public void Purchasing()
-        //{
-        //
-        //}
-        public void ChooseQuantity()
+        public void ChooseQuantity()//ChooseQuantity works do not modify
         {
             int input;
             bool exit = false;
@@ -72,15 +69,15 @@ namespace PotionShop
             }
             else
             {
-                if((2*quantity)/healthJuice < 1)
+                if(2*quantity > healthJuice)
                 {
                     Console.WriteLine("Sorry you don't have enough health concentrate.");
                 }
-                if((1*quantity)/sugar < 1)
+                if(1*quantity > sugar)
                 {
                     Console.WriteLine("Sorry you don't have enough sugar.");
                 }
-                if((1*quantity)/bottles < 1)
+                if(1*quantity > bottles)
                 {
                     Console.WriteLine("Sorry you don't have enough bottles.");
                 }
@@ -90,6 +87,7 @@ namespace PotionShop
         }
         public void BrewManaPotions()
         {
+            ChooseQuantity();
             if (manaJuice >= 2 * quantity && sugar >= 3 * quantity && bottles >= 1 * quantity)
             {
                 manaJuice = -2 * quantity;
@@ -99,15 +97,15 @@ namespace PotionShop
             }
             else
             {
-                if (2 * quantity > healthJuice)//Change all of these to this format ADAM!!!
+                if (2 * quantity > manaJuice)//Change all of these to this format ADAM!!!
                 {
                     Console.WriteLine("Sorry you don't have enough mana concentrate.");
                 }
-                if (1 * quantity / sugar < 1)
+                if (1 * quantity > sugar)
                 {
                     Console.WriteLine("Sorry you don't have enough sugar.");
                 }
-                if (1 * quantity / bottles < 1)
+                if (1 * quantity > bottles)
                 {
                     Console.WriteLine("Sorry you don't have enough bottles for that.");
                 }
@@ -115,6 +113,7 @@ namespace PotionShop
         }
         public void BrewLemonade()
         {
+            ChooseQuantity();
             if (lemons >= 2 * quantity && sugar >= 3 * quantity && bottles >= 1 * quantity)
             {
                 lemons = -2 * quantity;
@@ -124,15 +123,15 @@ namespace PotionShop
             }
             else
             {
-                if (2 * quantity / lemons < 1)
+                if (2 * quantity > lemons)
                 {
                     Console.WriteLine("Sorry you don't have enough lemons.");
                 }
-                if (3 * quantity / sugar < 1)
+                if (3 * quantity > sugar)
                 {
                     Console.WriteLine("Sorry you don't have enough sugar.");
                 }
-                if (1 * quantity / bottles < 1)
+                if (1 * quantity > bottles)
                 {
                     Console.WriteLine("Sorry you don't have enough bottles for that.");
                 }

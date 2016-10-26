@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    class Weather
+    public class Weather
     {
         Random random;
-        int[] climate = new int[] { 0, 1, 2, 3 };        
+        public Danger danger = new Danger();
+        //public int[] climate = new int[4] { 0, 1, 2, 3 };
+        public int currentTemp;        
 
         public int SetTemp()
         {

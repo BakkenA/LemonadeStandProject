@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    public class Market
+    class Ingredient
     {
-        public Market()
+        public Ingredient(string name)
         {
-            
+        
         }
     }
 }

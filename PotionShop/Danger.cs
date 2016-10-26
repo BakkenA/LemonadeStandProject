@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    class Danger
+    public class Danger
     {
         Random random;
-        int[] threat = new int[20];
+        public int currentThreat; 
+        //int[] threat = new int[20];
 
         public int SetThreat()
         {

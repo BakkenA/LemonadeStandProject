@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    public class Market
+    public class Mage : Customer
     {
-        public Market()
+        string name = "Mage";
+        public double money = 20.00;
+        public Mage(Store store)
         {
-            
+            this.store = store;
         }
     }
 }

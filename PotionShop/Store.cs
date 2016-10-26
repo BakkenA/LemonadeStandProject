@@ -10,46 +10,37 @@ namespace PotionShop
     {
         public string name;
         public int daysOpen;
-        public int budget;
         public int healthPotions;
         public int manaPotions;
         public int lemonades;
+        public int healthPotionPrice;
+        public int manaPotionPrice;
+        public int lemonadePrice;
         public Store()
         {
-            this.name = NameStore();
+            NameStore();
             this.daysOpen = 0;
             this.healthPotions = 0;
             this.manaPotions = 0;
             this.lemonades = 0;
-            this.budget = 0;
+            this.healthPotionPrice = 0;
+            this.manaPotionPrice = 0;
+            this.lemonadePrice = 0;
         }
-        public string NameStore()
+        public void NameStore()
         {
             name = Console.ReadLine();
-            return name;
         }
         public void BeginDay()
         {
             daysOpen++;
         }
-        public void AddHealthPotions()
-        {
+        //public void SellLemonade()
+        //{
+        //    for (int i = 0; i < length; i++)
+        //    {
 
-        }
-        public void AlterBudget()
-        {
-            
-        }
-        public void CheckDay()
-        {
-            if (daysOpen == 7)
-            {
-                EndWeek();
-            }
-        }
-        public void EndWeek()
-        {
-            Environment.Exit(0);
-        }
+        //    }
+        //}
     }
 }
