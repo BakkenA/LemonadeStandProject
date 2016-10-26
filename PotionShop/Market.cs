@@ -8,6 +8,7 @@ namespace PotionShop
 {
     public class Market
     {
+
         public Market()
         {
             

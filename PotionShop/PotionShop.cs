@@ -83,7 +83,6 @@ namespace PotionShop
                 playerstoreMessage = ("And what do you want to call your player.store?");
                 CreateGame();
             }
-            
         }
         public void RunTutorial()
         {
@@ -135,6 +134,7 @@ namespace PotionShop
         public void StockHealthPotion()
         {
             Console.WriteLine("You have {0} health concentrate and {1} cups of sugar and {2} bottles.\nHow many health potions should be brewed today?", player.healthJuice, player.sugar, player.bottles);
+            player.SetHealthRecipe();
             player.BrewHealthPotions();
             player.store.healthPotions = player.healthPotion;
             StockManaPotion();
@@ -142,6 +142,7 @@ namespace PotionShop
         public void StockManaPotion()
         { 
             Console.WriteLine("You have {0} mana concentrate, {1} cups of sugar and {2} bottles.\nHow many mana potions should be brewed today?", player.manaJuice, player.sugar, player.bottles);
+            player.SetManaRecipe();
             player.BrewManaPotions();
             player.store.manaPotions = player.manaPotion;
             StockLemonade();
@@ -155,7 +156,8 @@ namespace PotionShop
                 string reply = Console.ReadLine().ToUpper();
                 if (reply == "YES")
                 {
-                    Console.WriteLine("Then let's make some LEMONADE!!!\nOkay...\nYou have {0} lemons, {1} cups of sugar and {2} bottles.\nHow much lemonade are we willing to make today?", player.lemons, player.sugar, player.bottles);
+                    Console.WriteLine("Then let's make some LEMONADE!!!");
+                    player.SetLemonadeRecipe();
                     player.ChooseQuantity();
                     player.BrewLemonade();
                     player.store.lemonades = player.lemonade;
@@ -164,6 +166,7 @@ namespace PotionShop
                 else if (reply == "NO")
                 {
                     Console.WriteLine("Well I hope nobody gets too thirsty, maybe keep some on display next to the register?");
+                    Console.ReadLine();
                     RunDay();
                 }
                 else if (reply == "MAYBE")

@@ -8,7 +8,7 @@ namespace PotionShop
 {
     public class Mage : Customer
     {
-        string name = "Mage";
+        public string name = "Mage";
         public double money = 20.00;
         public Mage(Store store)
         {

@@ -13,9 +13,9 @@ namespace PotionShop
         public int healthPotions;
         public int manaPotions;
         public int lemonades;
-        public int healthPotionPrice;
-        public int manaPotionPrice;
-        public int lemonadePrice;
+        public double healthPotionPrice;
+        public double manaPotionPrice;
+        public double lemonadePrice;
         public Store()
         {
             NameStore();
@@ -35,12 +35,5 @@ namespace PotionShop
         {
             daysOpen++;
         }
-        //public void SellLemonade()
-        //{
-        //    for (int i = 0; i < length; i++)
-        //    {
-
-        //    }
-        //}
     }
 }
