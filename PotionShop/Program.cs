@@ -10,7 +10,7 @@ namespace PotionShop
     {
         static void Main(string[] args)
         {
-            PotionShop PotionVendor = new PotionShop();
+            Game PotionVendor = new Game();
             PotionVendor.LaunchGame();
         }
     }
