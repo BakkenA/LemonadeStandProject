@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    class HealthJuice
+    public class Sugar : Ingredient
     {
+        public string name = "Sugar";
+        public static double cost = 0.10;
+        public Sugar()
+        {
+
+        }
     }
 }

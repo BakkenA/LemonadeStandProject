@@ -8,6 +8,7 @@ namespace PotionShop
 {
     public class Store
     {
+        public Player player;
         public string name;
         public int daysOpen;
         public int healthPotions;
@@ -16,16 +17,17 @@ namespace PotionShop
         public double healthPotionPrice;
         public double manaPotionPrice;
         public double lemonadePrice;
-        public Store()
+        public Store(Player player)
         {
             NameStore();
-            this.daysOpen = 0;
-            this.healthPotions = 0;
-            this.manaPotions = 0;
-            this.lemonades = 0;
-            this.healthPotionPrice = 0;
-            this.manaPotionPrice = 0;
-            this.lemonadePrice = 0;
+            this.player = player;
+            daysOpen = 0;
+            healthPotions = 0;
+            manaPotions = 0;
+            lemonades = 0;
+            healthPotionPrice = 0;
+            manaPotionPrice = 0;
+            lemonadePrice = 0;
         }
         public void NameStore()
         {
@@ -34,6 +36,11 @@ namespace PotionShop
         public void BeginDay()
         {
             daysOpen++;
+        }
+        public void SellLemonades(int amount)
+        {
+            lemonades -= amount;
+            player.wallet.currentMoney += lemonadePrice * amount;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace PotionShop
 
         public Game()
         {
+            day = new Day();
         }
         public void LaunchGame()
         {
@@ -60,25 +61,25 @@ namespace PotionShop
         {
             Console.WriteLine(nameMessage);
             day.player = new Player(playerstoreMessage);
-            Console.WriteLine("Very well then, {0}'s {1}.\nDoes that sound right to you?", player.name, player.store.name);
+            Console.WriteLine("Very well then, {0}'s {1}.\nDoes that sound right to you?", day.player.name, day.player.store.name);
             string response = Console.ReadLine().ToUpper();
             if (response == "YES")
             {
-                Console.WriteLine("Fantastic, {0}'s {1}!\nDare it if I may say so myself, but it does have a certain ring to it, doesn't it?.\nAh well..\nBest of luck to you, I'll be back next week to check on your progress.", player.name, player.store.name);
+                Console.WriteLine("Fantastic, {0}'s {1}!\nDare it if I may say so myself, but it does have a certain ring to it, doesn't it?.\nAh well..\nBest of luck to you, I'll be back next week to check on your progress.", day.player.name, day.player.store.name);
                 Console.ReadLine();
-                day.BeginGame();
+                day.InitializeFirstDay();
             }
             else if (response == "NO")
             {
                 nameMessage = ("Your name again?");
-                playerstoreMessage = ("And the name of your player.store?");
+                playerstoreMessage = String.Format("And the name of your {0}?", day.player.store.name);
                 CreateGame();
             }
             else
             {
                 Console.WriteLine("It was a yes or no question.");
                 nameMessage = ("What is your NAME?");
-                playerstoreMessage = ("And what do you want to call your player.store?");
+                playerstoreMessage = String.Format("And what do you want to call your {0}?", day.player.store.name);
                 CreateGame();
             }
         }

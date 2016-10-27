@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    public class HealthConcentrate : Ingredient
+    public class ManaConcentrate : Ingredient
     {
-        public string name = "Health Concentrate";
-        public static double cost = 0.75;
-        public HealthConcentrate()
+        public string name = "Mana Concentrate";
+        public static double cost = 0.90;
+        public ManaConcentrate()
         {
 
         }

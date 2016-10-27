@@ -36,11 +36,11 @@ namespace PotionShop
             int purchaseChance = random.Next(0, 3);
             return purchaseChance;
         }
-        public virtual void PurchaseLemonade(Store store)
+        public virtual void PurchaseLemonade()
         {
-            if (thirst == 100 && store.lemonades >= 2)
+            if (thirst == 100 && store.lemonades >= 2 && purchaseChance == 2)
             {
-                store.lemonades -= 2;
+                store.SellLemonades(2);
             }
             else if (thirst == 50 && purchaseChance == 2 && store.lemonades >= 1)
             {

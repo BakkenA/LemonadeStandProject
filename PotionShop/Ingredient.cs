@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    class Ingredient
+    public class Ingredient
     {
-        public Ingredient(string name)
+        public Ingredient()
         {
         
         }
