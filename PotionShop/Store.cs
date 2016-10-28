@@ -13,7 +13,7 @@ namespace PotionShop
         public int daysOpen;
         public int healthPotions;
         public int manaPotions;
-        public int lemonades;
+        public int lemonadeForSale;
         public double healthPotionPrice;
         public double manaPotionPrice;
         public double lemonadePrice;
@@ -24,7 +24,7 @@ namespace PotionShop
             daysOpen = 0;
             healthPotions = 0;
             manaPotions = 0;
-            lemonades = 0;
+            lemonadeForSale = 0;
             healthPotionPrice = 0;
             manaPotionPrice = 0;
             lemonadePrice = 0;
@@ -38,9 +38,13 @@ namespace PotionShop
         {
             daysOpen++;
         }
+        public void StockLemonade()
+        {
+            player.lemonadeMade = lemonadeForSale;
+        }
         public void SellLemonades(int amount)
         {
-            lemonades -= amount;
+            lemonadeForSale -= amount;
             player.wallet.currentMoney += lemonadePrice * amount;
         }
     }

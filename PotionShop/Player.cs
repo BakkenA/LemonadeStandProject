@@ -442,31 +442,84 @@ namespace PotionShop
                 lemonadePrice = sellingPrice;
             }
         }
-        //public void BrewLemonade()
-        //{
-        //    ChooseQuantity();
-        //    if (lemons >= 2 * quantity && sugar >= 3 * quantity && bottles >= 1 * quantity)
-        //    {
-        //        lemons -= 2 * quantity;
-        //        sugar -= 1 * quantity;
-        //        bottles -= 1 * quantity;
-        //        lemonade = 6 * quantity;
-        //    }
-        //    else
-        //    {
-        //        if (2 * quantity > lemons)
-        //        {
-        //            Console.WriteLine("Sorry you don't have enough lemons.");
-        //        }
-        //        if (3 * quantity > sugar)
-        //        {
-        //            Console.WriteLine("Sorry you don't have enough sugar.");
-        //        }
-        //        if (1 * quantity > bottles)
-        //        {
-        //            Console.WriteLine("Sorry you don't have enough bottles for that.");
-        //        }
-        //    }
-        //}
+        public void ConfirmLemonadePrice()
+        {
+            Console.WriteLine("The selling price of your lemonade is now ${0}, is that okay?", lemonadePrice);
+            Console.Write("YES or NO");
+            string response = Console.ReadLine().ToUpper();
+            if (response == "YES")
+            {
+                Console.WriteLine("Alright, we'll be selling lemonade at ${0} per glass.", lemonadePrice);
+                Console.ReadLine();
+            }
+            else if (response == "NO")
+            {
+                Console.WriteLine("Alright, then let's change it.");
+                Console.ReadLine();
+                Console.Clear();
+                SetLemonadePrice();
+            }
+            SetLemonadePrice();
+        }
+        public void BrewLemonade()
+        {
+            if (lemonadeRecipe[0] <= inventory.myLemons.Count() && lemonadeRecipe[1] <= inventory.mySugar.Count()  && lemonadeRecipe[2] <= inventory.myBagsOfIce.Count())
+            {
+
+                lemonadeMade += 1;
+                                
+            }
+            else
+            {
+                if (lemonadeRecipe[0] > inventory.myLemons.Count())
+                {
+                    Console.WriteLine("Sorry you don't have enough lemons.");
+                }
+                else if (lemonadeRecipe[1] > inventory.mySugar.Count())
+                {
+                    Console.WriteLine("Sorry you don't have enough sugar.");
+                }
+                else if (lemonadeRecipe[2] > inventory.myBagsOfIce.Count())
+                {
+                    Console.WriteLine("Sorry you don't have enough ice for that.");
+                }
+                else if (lemonadeRecipe[3] > inventory.myBottles.Count())
+                {
+                    Console.WriteLine("Oh shoot we don't have enough bottles to make this");
+                }
+            }
+        }
+        public void ExpendLemons()
+        {
+            for (int i = 0; i < lemonadeRecipe[0]; i++)
+            {
+                inventory.myLemons.RemoveAt(0);
+            }
+            ExpendSugar();
+        }
+        public void ExpendSugar()
+        {
+            for (int i = 0; i < lemonadeRecipe[1]; i++)
+            {
+                inventory.mySugar.RemoveAt(0);
+            }
+            ExpendIce();
+        }
+        public void ExpendIce()
+        {
+            for (int i = 0; i < lemonadeRecipe[2]; i++)
+            {
+                inventory.myBagsOfIce.RemoveAt(0);
+            }
+            ExpendBottles();
+        }
+        public void ExpendBottles()
+        {
+            for (int i = 0; i < lemonadeRecipe[3]; i++)
+            {
+                inventory.myBottles.RemoveAt(0);
+            }
+
+        }
     }
 }
