@@ -48,7 +48,7 @@ namespace PotionShop
         }
         public void BeginPlayerActions()//This function will call to Player to set recipes and brew sellables variables
         {
-            player.BuyIngredients(market);
+            StockLemonade();
         }
         //public void StockHealthPotion()
         //{
@@ -66,38 +66,38 @@ namespace PotionShop
         //    player.store.manaPotions = player.manaPotion;
         //    StockLemonade();
         //}
-        //public void StockLemonade()
-        //{
-        //    bool exit = false;
-        //    while (!exit)
-        //    {
-        //        Console.WriteLine("Lemonade?");
-        //        string reply = Console.ReadLine().ToUpper();
-        //        if (reply == "YES")
-        //        {
-        //            Console.WriteLine("Then let's make some LEMONADE!!!");
-        //            player.SetLemonadeRecipe();
-        //            player.ChooseQuantity();
-        //            player.BrewLemonade();
-        //            player.store.lemonades = player.lemonade;
-        //            RunDay();
-        //        }
-        //        else if (reply == "NO")
-        //        {
-        //            Console.WriteLine("Well I hope nobody gets too thirsty, maybe keep some on display next to the register?");
-        //            Console.ReadLine();
-        //            RunDay();
-        //        }
-        //        else if (reply == "MAYBE")
-        //        {
-        //            Console.WriteLine("YES OR NO");
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("I meant, do you want to MAKE any LEMONADE today!\nYes or No?");
-        //        }
-        //    }
-        //}
+        public void StockLemonade()
+        {
+            bool exit = false;
+            while (!exit)
+            {
+                Console.WriteLine("Lemonade?");
+                string reply = Console.ReadLine().ToUpper();
+                if (reply == "YES")
+                {
+                    Console.WriteLine("Then let's make some LEMONADE!!!");
+                    player.SetLemonadeRecipe();
+                    player.ChooseQuantity();
+                    player.BrewLemonade();
+                    player.store.lemonadeForSale = player.lemonade;
+                    player.BuyIngredients(market);
+                }
+                else if (reply == "NO")
+                {
+                    Console.WriteLine("Well I hope nobody gets too thirsty, maybe keep some on display next to the register?");
+                    Console.ReadLine();
+                    player.BuyIngredients(market);
+                }
+                else if (reply == "MAYBE")
+                {
+                    Console.WriteLine("YES OR NO");
+                }
+                else
+                {
+                    Console.WriteLine("I meant, do you want to MAKE any LEMONADE today!\nYes or No?");
+                }
+            }
+        }
         public void RunDay()
         {
             CheckDay();
@@ -184,7 +184,7 @@ namespace PotionShop
         }
         public void EndWeek()
         {
-            Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you.\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades", player.name, player.store.healthPotions, player.store.manaPotions, player.store.lemonades);
+            Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you.\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades", player.name, player.store.healthPotions, player.store.manaPotions, player.store.lemonadeForSale);
             Console.ReadLine();
             Environment.Exit(0);
         }

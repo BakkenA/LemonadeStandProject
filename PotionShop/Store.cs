@@ -41,6 +41,7 @@ namespace PotionShop
         public void StockLemonade()
         {
             player.lemonadeMade = lemonadeForSale;
+            player.OpenStore();
         }
         public void SellLemonades(int amount)
         {

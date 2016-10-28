@@ -16,20 +16,25 @@ namespace PotionShop
         public string name;
         public int quantity;
         public double sellingPrice;
-        public int recipeAmount;
-        public int healthPotion;
-        public int manaPotion;
+        public int batchSize;
+        public int healthPotionMade;
+        public int manaPotionMade;
         public int lemonade;
         public double lemonadePrice;
         public int lemonadeMade;
         int[] lemonadeRecipe = new[] { 0, 0, 0, 0 };
-        
+        public int healthConcentrateHealthPotionRequirement = 2;
+        public int sugarHealthPotionRequirement = 1;
+        public int bottleHealthPotionRequirement = 1;
+        public int manaConcentrateManaPotionRequirement = 3;
+        public int sugarManaPotionRequirement = 3;
+        public int bottleManaPotionRequirement = 1;
 
         public Player(string message)
         {
-            this.healthPotion = 0;
-            this.manaPotion = 0;
-            this.lemonade = 0;
+            this.healthPotionMade = 0;
+            this.manaPotionMade = 0;
+            this.lemonadeMade = 0;
             NamePlayer();
             Console.WriteLine(message);
             store = new Store(this);
@@ -277,54 +282,54 @@ namespace PotionShop
                 }
             }
         }
-        //public void SetHealthRecipe()
-        //{
-        //    quantity = recipeAmount;
-        //    Console.WriteLine("What should today's Health Potion Recipe be?\nHealth Potions require health concentrate, sugar, and bottles\nYou currently have:\n{0} health concentrate\n{1} sugar\n{2} bottles",healthJuice, sugar, bottles);
-        //    Console.WriteLine("How much health concentrate do you want to use per batch today?");
-        //    ChooseQuantity();
-        //    if (recipeAmount <= )
-        //    {
-        //        recipeAmount = healthJuiceAmount; 
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("You don't have enough Health Concentrate to do that!\nChoose a different amount");
-        //        ChooseQuantity();
-        //    }
-        //    Console.WriteLine("How much sugar do you want to use per batch today?");
-        //    ChooseQuantity();
-        //    if (recipeAmount <= )
-        //    {
-        //        recipeAmount = healthSugarAmount;
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("You don't have enough Health Concentrate to do that!\nChoose a different amount");
-        //        ChooseQuantity();
-        //    }
-        //}
+        public void SetHPotionBatchSize()
+        {
+            batchSize = quantity;
+            Console.WriteLine("Here's what we have if we want to make any health potions today.\nHealth potions require 2 health concentrate, 1 sugar, and 1 bottle\nYou currently have:\n{0} Health concentrate\n{1} sugar\n{2} bottles", inventory.myHealths.Count(), inventory.mySugar.Count(), inventory.myBottles);
+            Console.WriteLine("How much health concentrate do you want to use per batch today?");
+            ChooseQuantity();
+            if (batchSize <= inventory.myHealths.Count()*healthConcentrateHealthPotionRequirement && batchSize <= inventory.mySugar.Count()*sugarHealthPotionRequirement && batchSize <= inventory.myBottles.Count()*bottleHealthPotionRequirement)
+            {
+                batchSize = healthPotionMade;
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough Health Concentrate to do that!\nChoose a different amount");
+                ChooseQuantity();
+            }
+            Console.WriteLine("How much sugar do you want to use per batch today?");
+            ChooseQuantity();
+            if (batchSize <= )
+            {
+                batchSize = healthSugarAmount;
+            }
+            else
+            {
+                Console.WriteLine("You don't have enough Health Concentrate to do that!\nChoose a different amount");
+                ChooseQuantity();
+            }
+        }
         //public void BrewHealthPotions()
         //{
         //    ChooseQuantity();
-        //    if ( >= healthJuiceAmount*quantity &&  >= healthSugarAmount*quantity &&  >= 1*quantity)
+        //    if ( >= healthJuiceAmount * quantity &&  >= healthSugarAmount * quantity &&  >= 1 * quantity)
         //    {
-        //         -= 2*quantity;
-        //         -= 1*quantity;
-        //         -= 1*quantity;
-        //        healthPotion = 1*quantity;
+        //         -= 2 * quantity;
+        //         -= 1 * quantity;
+        //         -= 1 * quantity;
+        //        healthPotion = 1 * quantity;
         //    }
         //    else
         //    {
-        //        if(healthJuiceAmount*quantity > )
+        //        if (healthJuiceAmount * quantity > )
         //        {
         //            Console.WriteLine("Sorry you don't have enough health concentrate.");
         //        }
-        //        if(healthSugarAmount*quantity > )
+        //        if (healthSugarAmount * quantity > )
         //        {
         //            Console.WriteLine("Sorry you don't have enough sugar.");
         //        }
-        //        if()
+        //        if ()
         //        {
         //            Console.WriteLine("Sorry you don't have enough bottles.");
         //        }
@@ -387,14 +392,14 @@ namespace PotionShop
         //}
         public void SetLemonadeRecipe()
         {
-            quantity = recipeAmount;
+            quantity = batchSize;
             Console.WriteLine("Okay, you might not believe this, but lemonade is a little more complicated than Health Potions or Mana Potions.\nBut don't worry, it's not that hard.\nLemonade requires lemons, sugar and ice\nWe'll be using the same bottles that we use for Health Potions and Mana Potions");
             Console.WriteLine("You currently have {0} lemons, {1} units of sugar, available ice is {2} and you have {3} bottles.", inventory.myLemons.Count(), inventory.mySugar.Count(), inventory.myBagsOfIce.Count(), inventory.myBottles.Count());
             Console.Write("How many lemons do you want in today's batch?");
             ChooseQuantity();
-            if (recipeAmount <= inventory.myLemons.Count())
+            if (batchSize <= inventory.myLemons.Count())
             {
-                lemonadeRecipe[0] = recipeAmount;
+                lemonadeRecipe[0] = batchSize;
             }
             else
             {
@@ -403,9 +408,9 @@ namespace PotionShop
             }
             Console.Write("How much sugar do you want in today's batch?");
             ChooseQuantity();
-            if (recipeAmount <= inventory.mySugar.Count())
+            if (batchSize <= inventory.mySugar.Count())
             {
-                lemonadeRecipe[1] = recipeAmount;
+                lemonadeRecipe[1] = batchSize;
             }
             else
             {
@@ -414,9 +419,9 @@ namespace PotionShop
             }
             Console.Write("How much ice do you want to use in todays batch? You should probably just use one.");
             ChooseQuantity();
-            if (recipeAmount <= inventory.myBagsOfIce.Count())
+            if (batchSize <= inventory.myBagsOfIce.Count())
             {
-                lemonadeRecipe[2] = recipeAmount;
+                lemonadeRecipe[2] = batchSize;
             }
             else
             {
@@ -459,7 +464,7 @@ namespace PotionShop
                 Console.Clear();
                 SetLemonadePrice();
             }
-            SetLemonadePrice();
+            BrewLemonade();
         }
         public void BrewLemonade()
         {
@@ -519,7 +524,11 @@ namespace PotionShop
             {
                 inventory.myBottles.RemoveAt(0);
             }
-
+            store.StockLemonade();
+        }
+        public void OpenStore()
+        {
+            day.RunDay();
         }
     }
 }

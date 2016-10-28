@@ -38,13 +38,13 @@ namespace PotionShop
         }
         public virtual void PurchaseLemonade()
         {
-            if (thirst == 100 && store.lemonades >= 2 && purchaseChance == 2)
+            if (thirst == 100 && store.lemonadeForSale >= 2 && purchaseChance == 2)
             {
                 store.SellLemonades(2);
             }
-            else if (thirst == 50 && purchaseChance == 2 && store.lemonades >= 1)
+            else if (thirst == 50 && purchaseChance == 2 && store.lemonadeForSale >= 1)
             {
-                store.lemonades -= 1;
+                store.lemonadeForSale -= 1;
             }
         }
     }
