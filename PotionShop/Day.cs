@@ -8,7 +8,7 @@ namespace PotionShop
 {
     public class Day
     {
-        Game game;
+        public Game game;
         public Player player;
         Weather weather = new Weather();
         Market market = new Market();
@@ -28,6 +28,7 @@ namespace PotionShop
         public void InitializeFirstDay()
         {
             market.CreateStartingStock();
+            market.CheckMinPrice();
             StartDay();
 
         }//This should be done

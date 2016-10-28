@@ -11,7 +11,9 @@ namespace PotionShop
         static void Main(string[] args)
         {
             Game PotionVendor = new Game();
+            
             PotionVendor.LaunchGame();
+
         }
     }
 }

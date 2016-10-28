@@ -18,16 +18,18 @@ namespace PotionShop
         Sugar sugar;
         Ice ice;
         Bottle bottle;
-        public double lemonCost;
-        public double manaConcentrateCost;
-        public double healthConcentrateCost;
-        public double sugarCost;
-        List<Lemon> lemons;
-        List<ManaConcentrate> manas;
-        List<HealthConcentrate> healths;
-        List<Sugar> sugars;
-        List<Ice> bagsOfIce;
-        List<Bottle> bottles;
+        public double lemonCost = 0.75;
+        public double manaConcentrateCost = 1.25;
+        public double healthConcentrateCost = 1.05;
+        public double sugarCost = 0.25;
+        public double iceCost = 0.05;
+        public double bottleCost = 0.10;
+        public List<Lemon> lemons;
+        public List<ManaConcentrate> manas;
+        public List<HealthConcentrate> healths;
+        public List<Sugar> sugars;
+        public List<Ice> bagsOfIce;
+        public List<Bottle> bottles;
         public Market()
         {
             lemons = new List<Lemon>();
@@ -48,12 +50,12 @@ namespace PotionShop
             int amountOfStartingStock = 20;
             for (int i = 0; i < amountOfStartingStock; i++)
             {
-                lemons.Add(lemon);
-                manas.Add(manaCon);
-                healths.Add(healthCon);
-                sugars.Add(sugar);
-                bagsOfIce.Add(ice);
-                bottles.Add(bottle);
+                lemons.Add(new Lemon());
+                manas.Add(new ManaConcentrate());
+                healths.Add(new HealthConcentrate());
+                sugars.Add(new Sugar());
+                bagsOfIce.Add(new Ice());
+                bottles.Add(new Bottle());
             }
         }
         public void Restock()
@@ -71,7 +73,7 @@ namespace PotionShop
         }
         public void CheckMinPrice()
         {
-            if (Lemon.cost >= 0.05 && HealthConcentrate.cost >= 0.10 && ManaConcentrate.cost >= 0.25 && Sugar.cost >= 0.01)
+            if (lemonCost >= 0.05 && healthConcentrateCost >= 0.10 && manaConcentrateCost >= 0.25 && sugarCost >= 0.01)
             {
                 FluctuatePrices();
             }
@@ -83,10 +85,10 @@ namespace PotionShop
         }
         public void FluctuatePrices()
         {
-            lemonCost -= 10 / lemons.Count() * 2;
-            manaConcentrateCost -= 3 / manas.Count();
-            healthConcentrateCost -= 10 / healths.Count();
-            sugarCost -= 10 / sugars.Count() * 2;
+            lemonCost -= 10 / lemons.Count() * lemonCost;
+            manaConcentrateCost -= 3 / manas.Count() * manaConcentrateCost;
+            healthConcentrateCost -= 10 / healths.Count() * healthConcentrateCost;
+            sugarCost -= 10 / sugars.Count() * sugarCost;
         }
     }
 }

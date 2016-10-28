@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    class Game
+    public class Game
     {
-        Day day;
-        Player player;
+        public Day day;
+        public Player player;
         string nameMessage = "Alright, I just need one more signature before your grand opening.\nJust sign your name here:";
         string playerstoreMessage = "Okay good.\nAnd before I leave, let me just make sure I have the name of your shop right.";
 

@@ -12,12 +12,16 @@ namespace PotionShop
         public Store store;
         public Market market;
         public Inventory inventory;
+        public Day day;
         public string name;
         public int quantity;
+        public double sellingPrice;
         public int recipeAmount;
         public int healthPotion;
         public int manaPotion;
         public int lemonade;
+        public double lemonadePrice;
+        public int lemonadeMade;
         int[] lemonadeRecipe = new[] { 0, 0, 0, 0 };
         
 
@@ -34,11 +38,23 @@ namespace PotionShop
         }
         public void NamePlayer()
         {
+            Console.Write("NAME:");
             name = Console.ReadLine();
         }
-        public void CheckFunds(int cost)
+        public bool CheckFunds(double cost)
         {
-            int
+            double cash = wallet.currentMoney;
+            ChooseQuantity();
+            if (cost * quantity <= cash)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("I'm sorry, but your card was declined...\nMaybe try selecting fewer items");
+                Console.ReadLine();
+                return false;
+            }
         }
         public void BuyIngredients(Market market)
         {
@@ -46,7 +62,8 @@ namespace PotionShop
             bool exit = false;
             while (!exit)
             {
-                Console.WriteLine("Welcome to Sendykia's Grocery Store!\nWe have a wide variety to choose from, but you look like you're interested in some pretty specific items...\nHere's what we have for someone in your line of work:\nLemons\nSugar\nIce\nBottles\nHealth Concentrate\nMana Concentrate\nFertilizer\nPlastic");
+                Console.WriteLine("\n\nWelcome to Sendykia's Grocery Store!\nWe have a wide variety to choose from, but you look like you're interested in some pretty specific items...\nHere's what we have for someone in your line of work:\nLemons\nSugar\nIce\nBottles\nHealth Concentrate\nMana Concentrate\nFertilizer\nPlastic");
+                Console.Write("Just tell me what you want to buy, otherwise you can just LEAVE.");
                 switch (Console.ReadLine().ToUpper())
                     {
                         case "LEMONS":
@@ -68,26 +85,165 @@ namespace PotionShop
                             BuyManaConcentrate();
                             break;
                         case "FERTILIZER":
-                            BreakBad();
+                            BuyBad();
                             break;
                         case "PLASTIC":
-                            BreakBad();
+                            BuyBad();
                             break;
                         case "LEAVE":
-                            SetLemonadeRecipe();
+                        Console.Clear();
+                        exit = true;
+                        SetLemonadeRecipe();
                             break;
                         default:
                             break;
                     }
               }
+            SetLemonadeRecipe();
         }
         public void BuyLemons()
         {
-            Console.WriteLine("We currently have {0} Lemons",);
-            CheckFunds(market.Lemon.price);
+            Console.WriteLine("We currently have {0} Lemons and they are going for ${1} a piece.", market.lemons.Count(), market.lemonCost);
+            Console.Write("How many do you want?");
+            if (CheckFunds(market.lemonCost) && market.lemons.Count() >= quantity)
+            {
+                //Lemon lemon = new Lemon(987);//This line was part of a deeper-dive into the philosophy of teleportation, if you're Mike, you'll know what this is, if you're not, ask Mike.
+                for (int i = 0; i < quantity; i++)
+                {
+                    //market.lemons.Add(lemon);
+                    inventory.myLemons.Add(market.lemons[0]);
+                    market.lemons.RemoveAt(0);
+                }
+             }
+            else if(market.lemons.Count() < quantity)
+            {
+                Console.WriteLine("Hey, I checked in the back, we don't have that many.");
+                BuyLemons();
+            }
+            else if (!CheckFunds(market.lemonCost))
+            {
+                BuyLemons();
+            }
         }
-        
-        public void ChooseQuantity()//ChooseQuantity works do not modify
+        public void BuySugar()
+        {
+            Console.WriteLine("We currently have {0} units of sugar that we are selling for ${1} per unit.", market.sugars.Count(), market.sugarCost);
+            Console.Write("How many do you want?");
+            if (CheckFunds(market.sugarCost) && market.sugars.Count() >= quantity)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    inventory.mySugar.Add(market.sugars[0]);
+                    market.sugars.RemoveAt(0);
+                }
+            }
+            else if (market.sugars.Count() < quantity)
+            {
+                Console.WriteLine("Hey, I checked in the back, we don't have that many.");
+                BuyLemons();
+            }
+            else if (!CheckFunds(market.sugarCost))
+            {
+                BuySugar();
+            }
+        }
+        public void BuyIce()
+        {
+            Console.WriteLine("We currently have {0} bags of ice, that we are selling for ${1} per bag.", market.bagsOfIce.Count(), market.iceCost);
+            Console.Write("How many do you want?");
+            if (CheckFunds(market.iceCost) && market.bagsOfIce.Count() >= quantity)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    inventory.myBagsOfIce.Add(market.bagsOfIce[0]);
+                    market.bagsOfIce.RemoveAt(0);
+                }
+            }
+            else if (market.bagsOfIce.Count() < quantity)
+            {
+                Console.WriteLine("Hey, I checked in the back, we don't have that many.");
+                BuyIce();
+            }
+            else if (!CheckFunds(market.iceCost))
+            {
+                BuyIce();
+            }
+        }
+        public void BuyBottles()
+        {
+            Console.WriteLine("We currently have {0} bottles, that we always sell for ${1} a bottle.", market.bottles.Count(), market.bottleCost);
+            Console.Write("How many do you want?");
+            if (CheckFunds(market.bottleCost) && market.bottles.Count() >= quantity)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    inventory.myBottles.Add(market.bottles[0]);
+                    market.bottles.RemoveAt(0);
+                }
+            }
+            else if (market.bottles.Count() < quantity)
+            {
+                Console.WriteLine("Hey, I checked in the back, we don't have that many.");
+                BuyBottles();
+            }
+            else if (!CheckFunds(market.sugarCost))
+            {
+                BuyBottles();
+            }
+        }
+        public void BuyHealthConcentrate()
+        {
+            Console.WriteLine("We currently have {0} vials of health concentrate, we're selling them for ${1} today.", market.healths.Count(), market.healthConcentrateCost);
+            Console.Write("How many do you want?");
+            if (CheckFunds(market.healthConcentrateCost) && market.healths.Count() >= quantity)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    inventory.myHealths.Add(market.healths[0]);
+                    market.healths.RemoveAt(0);
+                }
+            }
+            else if (market.healths.Count() < quantity)
+            {
+                Console.WriteLine("Hey, I checked in the back, we don't have that many.");
+                BuyHealthConcentrate();
+            }
+            else if (!CheckFunds(market.healthConcentrateCost))
+            {
+                BuyHealthConcentrate();
+            }
+        }
+        public void BuyManaConcentrate()
+        {
+            Console.WriteLine("We currently have {0} vials of mana concentrate we're selling them for ${1} today.", market.manas.Count(), market.manaConcentrateCost);
+            Console.Write("How many do you want?");
+            if (CheckFunds(market.manaConcentrateCost) && market.manas.Count() >= quantity)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    inventory.myManas.Add(market.manas[0]);
+                    market.manas.RemoveAt(0);
+                }
+            }
+            else if (market.manas.Count() < quantity)
+            {
+                Console.WriteLine("Hey, I checked in the back, we don't have that many.");
+                BuyManaConcentrate();
+            }
+            else if (!CheckFunds(market.manaConcentrateCost))
+            {
+                BuyManaConcentrate();
+            }
+        }
+        public void BuyBad()
+        {
+            Console.WriteLine("Why would you want that? You're not trying to get into the ''jet'' trade are you?");
+            Console.ReadLine();
+            Console.WriteLine("I know the money is appealling, but that stuff ruins lives!\nWhy don't you choose something else");
+            Console.ReadLine();
+            BuyIngredients(market);
+        }
+        public void ChooseQuantity()//ChooseQuantity works, do not modify in any way
         {
             int input;
             bool exit = false;
@@ -101,6 +257,23 @@ namespace PotionShop
                 else
                 {
                     Console.WriteLine("INVALID QUANTITY\nPlease try again.");
+                }
+            }
+        }
+        public void ChooseQuantityDouble()
+        {
+            double input;
+            bool exit = false;
+            while (!exit)
+            {
+                if (Double.TryParse(Console.ReadLine(), out input))
+                {
+                    sellingPrice = input;
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("That's not a valid number here, are you trying to break this?\nPlease try again.");
                 }
             }
         }
@@ -216,7 +389,8 @@ namespace PotionShop
         {
             quantity = recipeAmount;
             Console.WriteLine("Okay, you might not believe this, but lemonade is a little more complicated than Health Potions or Mana Potions.\nBut don't worry, it's not that hard.\nLemonade requires lemons, sugar and ice\nWe'll be using the same bottles that we use for Health Potions and Mana Potions");
-            Console.WriteLine("You currently have");
+            Console.WriteLine("You currently have {0} lemons, {1} units of sugar, available ice is {2} and you have {3} bottles.", inventory.myLemons.Count(), inventory.mySugar.Count(), inventory.myBagsOfIce.Count(), inventory.myBottles.Count());
+            Console.Write("How many lemons do you want in today's batch?");
             ChooseQuantity();
             if (recipeAmount <= inventory.myLemons.Count())
             {
@@ -224,10 +398,10 @@ namespace PotionShop
             }
             else
             {
-                Console.WriteLine("You don't have enough mana concentrate to do that!\nChoose a different amount");
+                Console.Write("You don't have enough lemons to do that!\nChoose a different amount");
                 ChooseQuantity();
             }
-            Console.WriteLine("How much sugar do you want to use per batch today?");
+            Console.Write("How much sugar do you want in today's batch?");
             ChooseQuantity();
             if (recipeAmount <= inventory.mySugar.Count())
             {
@@ -235,10 +409,10 @@ namespace PotionShop
             }
             else
             {
-                Console.WriteLine("You don't have enough sugar to do that!\nChoose a different amount");
+                Console.Write("You don't have enough sugar to do that!\nChoose a different amount");
                 ChooseQuantity();
             }
-            Console.WriteLine("How much ice do you want to use per batch today?");
+            Console.Write("How much ice do you want to use in todays batch? You should probably just use one.");
             ChooseQuantity();
             if (recipeAmount <= inventory.myBagsOfIce.Count())
             {
@@ -246,8 +420,26 @@ namespace PotionShop
             }
             else
             {
-                Console.WriteLine("You don't have enough ice to do that!\nChoose a different amount");
+                Console.Write("You don't have enough ice to do that!\nChoose a different amount");
                 ChooseQuantity();
+            }
+            Console.WriteLine("All that's left to do is set our selling price!");
+            SetLemonadePrice();
+        }
+        public void SetLemonadePrice()
+        {
+            Console.WriteLine("Alright, the lemonade looks great!");
+            Console.Write("How much do you want to charge for it?");
+            ChooseQuantityDouble();
+            if(sellingPrice >= 10.00)
+            {
+                Console.WriteLine("Are you nuts? No one is going to buy a glass of lemonade at that price!");
+                Console.Write("Try something a little more reasonable");
+                ChooseQuantityDouble();
+            }
+            else
+            {
+                lemonadePrice = sellingPrice;
             }
         }
         //public void BrewLemonade()

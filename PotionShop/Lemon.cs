@@ -12,7 +12,7 @@ namespace PotionShop
         public static double cost = 0.75;
         public Lemon()
         {
-
+            
         }
     }
 }

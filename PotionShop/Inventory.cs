@@ -28,6 +28,7 @@ namespace PotionShop
             myHealths = new List<HealthConcentrate>();
             mySugar = new List<Sugar>();
             myBagsOfIce = new List<Ice>();
+            myBottles = new List<Bottle>();
         }
     }
 }
