@@ -1,0 +1,5 @@
+As we have been instructed to use SOLID while writing this program I have done my best to adhere to the principles of SOLID design.
+
+The I believe that the single responsibility principle has been implemented in every function I have written, but it is most apparent in the various "expend" functions found in the Player class, "ExpendLemons()," "ExpendSugar()," etc all do only one thing.
+
+An example of Open/Closed Design Principle is in the fact that all ingredients are objects as opposed to variables, allowing for easy manipulation of code if additional features are requested or changes required.
