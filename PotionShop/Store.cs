@@ -31,7 +31,7 @@ namespace PotionShop
         }
         public void NameStore()
         {
-            Console.Write("Store's Name:");
+            Console.Write("STORE NAME:");
             name = Console.ReadLine();
         }
         public void BeginDay()

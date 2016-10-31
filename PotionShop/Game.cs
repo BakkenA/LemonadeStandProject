@@ -86,6 +86,7 @@ namespace PotionShop
         public void RunTutorial()
         {
             Console.WriteLine("This is Potion Shop a game based on the 1979 Apple II classic Lemonade Stand.\nIn this game you are the proud proprietor of a new potion shop in the town of Pritzlaffburg.\nPritzlaffburg has a large population of adventurers.\nThese adventurers have created a large demand for health potions and mana potions.\nYour shop exists to satisfy that demand, and to make you rich in the process!\nAt the end of each day you'll be able to choose how to allocate your funds in order to operate the next day.\nAfter the first day you'll be able to stock your shelves as you see fit based on the materials you have.\nIt would be wise to take the day's forecast into account before choosing what to stock.\nYou have seven days to make the most money out of your initial inventory.\nGOOD LUCK!!!");
+            Console.WriteLine("\nYou will win if you are able to keep the shop running for 7 days and have doubled your starting money by that time.\n\nYou lose if your available money reaches zero, or if at 7 days you have not sufficiently made enough money.");
             Console.ReadLine();
             Console.Clear();
             LaunchGame();

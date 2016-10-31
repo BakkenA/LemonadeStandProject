@@ -292,7 +292,7 @@ namespace PotionShop
         {
             healthPotionBatchSize = desiredQuantity;
             Console.WriteLine("\n\nHere's what we have if we want to make any health potions today.\nHealth potions require 2 health concentrate, 1 sugar, and 1 bottle\nYou currently have:\n{0} Health concentrate\n{1} sugar\n{2} bottles", inventory.myHealths.Count(), inventory.mySugar.Count(), inventory.myBottles.Count());
-            Console.WriteLine("How much health concentrate do you want to use per batch today?");
+            Console.WriteLine("How many health potions should we make today?");
             ChooseQuantity();
             if (batchSize <= inventory.myHealths.Count()*healthConcentrateHealthPotionRequirement && batchSize <= inventory.mySugar.Count()*sugarHealthPotionRequirement && batchSize <= inventory.myBottles.Count()*bottleHealthPotionRequirement)
             {
@@ -323,7 +323,7 @@ namespace PotionShop
         {
             manaPotionBatchSize = desiredQuantity;
             Console.WriteLine("\n\nHere's what we have if we want to make any health potions today.\nHealth potions require 2 health concentrate, 1 sugar, and 1 bottle\nYou currently have:\n{0} Mana concentrate\n{1} sugar\n{2} bottles", inventory.myManas.Count(), inventory.mySugar.Count(), inventory.myBottles);
-            Console.WriteLine("How many mana potions should we make?");
+            Console.WriteLine("How many mana potions should we make today?");
             ChooseQuantity();
             if (batchSize <= inventory.myManas.Count() * manaConcentrateManaPotionRequirement && batchSize <= inventory.mySugar.Count() * sugarManaPotionRequirement && batchSize <= inventory.myBottles.Count() * bottleManaPotionRequirement)
             {

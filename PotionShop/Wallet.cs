@@ -8,18 +8,20 @@ namespace PotionShop
 {
     public class Wallet
     {
+        public double startingMoney;
         public double currentMoney;
         public Wallet()
         {
             if (Console.BackgroundColor == ConsoleColor.Black)
             {
-                currentMoney = 20.00;
+                startingMoney = 20.00;
             }
             else if (Console.BackgroundColor == ConsoleColor.Red)
             {
-                currentMoney = 10.00;
+                startingMoney = 10.00;
 
             }
+            currentMoney = startingMoney;
         }
         public void CheckWallet()
         {

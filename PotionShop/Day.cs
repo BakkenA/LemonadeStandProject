@@ -48,6 +48,7 @@ namespace PotionShop
         }
         public void BeginPlayerActions()//This function will call to Player to set recipes and brew sellables variables
         {
+            player.BuyIngredients(market);
             StockHealthPotion();
         }
         public void StockHealthPotion()
@@ -184,7 +185,18 @@ namespace PotionShop
         {
             Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you.\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades", player.name, player.store.healthPotionForSale, player.store.manaPotionForSale, player.store.lemonadeForSale);
             Console.ReadLine();
-            Environment.Exit(0);
+            Console.WriteLine("Let's see you have ${0} from your initial starting funds of ${1}.", player.wallet.currentMoney, player.wallet.startingMoney);
+            if (player.wallet.currentMoney >= player.wallet.startingMoney * 2)
+            {
+                Console.WriteLine("WOW great work, you're quite the entrepeneur!");
+                Console.ReadLine();
+            }
+            else if (player.wallet.currentMoney <= player.wallet.startingMoney * 2)
+            {
+                Console.WriteLine("Hmm, well I'm afraid you haven't met the projections you promised me. I'm sorry, but we can't allow you to continue this shop.\nYou need to vacate this space by the end of the day...");
+                Console.ReadLine();
+            }
+            game.LaunchGame();
         }
         public void EndBadly()
         {
