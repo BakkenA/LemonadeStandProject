@@ -11,8 +11,8 @@ namespace PotionShop
         public Player player;
         public string name;
         public int daysOpen;
-        public int healthPotions;
-        public int manaPotions;
+        public int healthPotionForSale;
+        public int manaPotionForSale;
         public int lemonadeForSale;
         public double healthPotionPrice;
         public double manaPotionPrice;
@@ -22,8 +22,8 @@ namespace PotionShop
             NameStore();
             this.player = player;
             daysOpen = 0;
-            healthPotions = 0;
-            manaPotions = 0;
+            healthPotionForSale = 0;
+            manaPotionForSale = 0;
             lemonadeForSale = 0;
             healthPotionPrice = 0;
             manaPotionPrice = 0;
@@ -40,13 +40,33 @@ namespace PotionShop
         }
         public void StockLemonade()
         {
-            player.lemonadeMade = lemonadeForSale;
+            lemonadeForSale = player.lemonadeMade;
+            StockHealthPotion();
+        }
+        public void StockHealthPotion()
+        {
+            healthPotionForSale = player.healthPotionMade;
+            StockManaPotion();
+        }
+        public void StockManaPotion()
+        {
+            manaPotionForSale = player.manaPotionMade;
             player.OpenStore();
         }
         public void SellLemonades(int amount)
         {
             lemonadeForSale -= amount;
             player.wallet.currentMoney += lemonadePrice * amount;
+        }
+        public void SellHealthPotions(int amount)
+        {
+            healthPotionForSale -= amount;
+            player.wallet.currentMoney += healthPotionPrice * amount;
+        }
+        public void SellManaPotions(int amount)
+        {
+            manaPotionForSale -= amount;
+            player.wallet.currentMoney += manaPotionPrice * amount;
         }
     }
 }

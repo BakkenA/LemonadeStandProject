@@ -48,24 +48,22 @@ namespace PotionShop
         }
         public void BeginPlayerActions()//This function will call to Player to set recipes and brew sellables variables
         {
+            StockHealthPotion();
+        }
+        public void StockHealthPotion()
+        {
+            Console.WriteLine("You have {0} health concentrate and {1} cups of sugar and {2} bottles.\nHow many health potions should be brewed today?", player.inventory.myHealths.Count(), player.inventory.mySugar.Count(), player.inventory.myBottles.Count());
+            player.SetHealthPotionBatchSize();
+            player.BrewHealthPotions();
+            StockManaPotion();
+        }
+        public void StockManaPotion()
+        {
+            Console.WriteLine("You have {0} mana concentrate, {1} cups of sugar and {2} bottles.\nHow many mana potions should be brewed today?", player.inventory.myManas.Count(), player.inventory.mySugar.Count(), player.inventory.myBottles.Count());
+            player.SetManaPotionBatchSize();
+            player.BrewManaPotions();
             StockLemonade();
         }
-        //public void StockHealthPotion()
-        //{
-        //    Console.WriteLine("You have {0} health concentrate and {1} cups of sugar and {2} bottles.\nHow many health potions should be brewed today?", player.healthJuice, player.sugar, player.bottles);
-        //    player.SetHealthRecipe();
-        //    player.BrewHealthPotions();
-        //    player.store.healthPotions = player.healthPotion;
-        //    StockManaPotion();
-        //}
-        //public void StockManaPotion()
-        //{ 
-        //    Console.WriteLine("You have {0} mana concentrate, {1} cups of sugar and {2} bottles.\nHow many mana potions should be brewed today?", player.manaJuice, player.sugar, player.bottles);
-        //    player.SetManaRecipe();
-        //    player.BrewManaPotions();
-        //    player.store.manaPotions = player.manaPotion;
-        //    StockLemonade();
-        //}
         public void StockLemonade()
         {
             bool exit = false;
@@ -184,7 +182,7 @@ namespace PotionShop
         }
         public void EndWeek()
         {
-            Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you.\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades", player.name, player.store.healthPotions, player.store.manaPotions, player.store.lemonadeForSale);
+            Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you.\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades", player.name, player.store.healthPotionForSale, player.store.manaPotionForSale, player.store.lemonadeForSale);
             Console.ReadLine();
             Environment.Exit(0);
         }
