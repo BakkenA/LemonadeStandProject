@@ -11,7 +11,7 @@ namespace PotionShop
         public Game game;
         public Player player;
         Weather weather = new Weather();
-        Market market = new Market();
+        public Market market = new Market();
         Customer customer;
         Peasant peasant;
         Warrior warrior;

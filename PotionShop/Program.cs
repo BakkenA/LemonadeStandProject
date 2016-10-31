@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace PotionShop
 {
-    class Program
+    public class Program
     {
+
         static void Main(string[] args)
         {
             Game PotionVendor = new Game();

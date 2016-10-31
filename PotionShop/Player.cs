@@ -8,6 +8,7 @@ namespace PotionShop
 {
     public class Player
     {
+        
         public Wallet wallet;
         public Store store;
         public Market market;
