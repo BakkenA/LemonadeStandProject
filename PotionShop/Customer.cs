@@ -8,7 +8,7 @@ namespace PotionShop
 {
     public class Customer
     {
-        Random random;
+        public Random random;
         public Store store;
         public int thirst;
         public int purchaseChance;

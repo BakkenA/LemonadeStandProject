@@ -8,7 +8,7 @@ namespace PotionShop
 {
     public class Danger
     {
-        Random random;
+        public Random random;
         public int currentThreat; 
         //int[] threat = new int[20];
 

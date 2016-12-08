@@ -10,15 +10,15 @@ namespace PotionShop
     {
         public Game game;
         public Player player;
-        Weather weather = new Weather();
+        public Weather weather = new Weather();
         public Market market = new Market();
-        Customer customer;
+        public Customer customer = new Customer();
         Peasant peasant;
         Warrior warrior;
         Mage mage;
         List<Peasant> peasants;
-        List<Warrior> warriors;
-        List<Mage> mages;
+        public List<Warrior> warriors;
+        public List<Mage> mages;
         public Day()
         {
             peasants = new List<Peasant>();
@@ -44,12 +44,28 @@ namespace PotionShop
             string todaysClimate = weather.SetClimate(currentTemp);
             Console.WriteLine("The weather is expected to be {0} today with a temperature of {1}.", todaysClimate, currentTemp);
             int currentThreat = weather.danger.SetThreat();
-            BeginPlayerActions();
+            if (player.store.daysOpen == 1)
+            {
+                IntroductionToPenelope();
+            }
+            else if (player.store.daysOpen > 1)
+            {
+                BeginPlayerActions();
+            }
         }
-        public void BeginPlayerActions()//This function will call to Player to set recipes and brew sellables variables
+        public void IntroductionToPenelope()//This function will call to Player to set recipes and brew sellables variables
         {
-            player.BuyIngredients(market);
-            StockHealthPotion();
+            Console.WriteLine("\n\n\nHi {0}! I'm Penelope, Mr. Heidegger has sent me here to act as your personal assistant for your first week of operations.",player.name);
+            Console.ReadLine();
+            Console.WriteLine("Why are you looking at me like that?" +
+            "\n\nI'm not here to spy on you!!!\nMr. Heidegger just thought you might need some help keeping track of things around here." +
+            "You've got the big job of steering this ship Captain, just consider me your First-Mate!");
+            BeginPlayerActions();       
+        }
+        public void BeginPlayerActions()
+        {
+            Console.WriteLine("\n\n\nOkay {0} we have ${1} available for us to make purchases with today. Do you want to go to Syndekia's?", player.name, player.wallet.currentMoney);
+            Console.ReadLine();
         }
         public void StockHealthPotion()
         {
@@ -183,7 +199,8 @@ namespace PotionShop
         }
         public void EndWeek()
         {
-            Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you.\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades", player.name, player.store.healthPotionForSale, player.store.manaPotionForSale, player.store.lemonadeForSale);
+            Console.WriteLine("Good morning {0}! Well let's take a look at what you've managed to do since last I left you."+
+            "\nLet's take a look at what you still have on your shelves:{1} health potions\n{2} mana potions\n{3} lemonades",player.name, player.store.healthPotionForSale, player.store.manaPotionForSale, player.store.lemonadeForSale);
             Console.ReadLine();
             Console.WriteLine("Let's see you have ${0} from your initial starting funds of ${1}.", player.wallet.currentMoney, player.wallet.startingMoney);
             if (player.wallet.currentMoney >= player.wallet.startingMoney * 2)
@@ -193,7 +210,7 @@ namespace PotionShop
             }
             else if (player.wallet.currentMoney <= player.wallet.startingMoney * 2)
             {
-                Console.WriteLine("Hmm, well I'm afraid you haven't met the projections you promised me. I'm sorry, but we can't allow you to continue this shop.\nYou need to vacate this space by the end of the day...");
+                Console.WriteLine("Hmm, well I'm afraid you haven't met the projections you promised me. I'm sorry, but we can't allow you to continue this shop.\nI want you gone by the end of the day...");
                 Console.ReadLine();
             }
             game.LaunchGame();
@@ -203,7 +220,9 @@ namespace PotionShop
             bool exit = false;
             while (!exit)
             {
-                Console.WriteLine("{0}'s {1} is bankrupt!!!\nYou failed to successfully navigate the entrepeneurial streets of Pritzlaffburg.\nNo one will ever remember {0}'s {1}.\nYou are killed by a goblin six years later.\nPlease choose one of the following:\nNew Game\nExit", player.name, player.store.name);
+                Console.WriteLine("{0}'s {1} is bankrupt!!!\nYou failed to successfully navigate the entrepeneurial streets of Pritzlaffburg.\nNo one will ever remember {0}'s {1}."+
+                "\nIn six months you find yourself directionless and alone and have made a grim decision.\nYour final thought, ''When life gives you lemons...''"+
+                "\n\n\nPlease choose one of the following:\nNew Game\nExit", player.name, player.store.name);
                 string menuChoice = Console.ReadLine().ToUpper();
                 if (menuChoice == "NEW GAME")
                 {

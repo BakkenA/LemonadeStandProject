@@ -34,12 +34,12 @@ namespace PotionShop
                     Console.Clear();
                     RunTutorial();
                 }
-                else if (menuChoice == "HINT")
+                else if (menuChoice == "HINT")//This choice is deliberately hidden from the player.
                 {
                     Console.Clear();
                     DisplayHint();
                 }
-                else if (menuChoice == "666")
+                else if (menuChoice == "666")//Again this choice is deliberately hidden from the player, thinking about old games got me thinking about Wolfenstein and Doom and games with secrets. etc
                 {
                     Console.Clear();
                     RunHardMode();
@@ -65,21 +65,24 @@ namespace PotionShop
             string response = Console.ReadLine().ToUpper();
             if (response == "YES")
             {
-                Console.WriteLine("Fantastic, {0}'s {1}!\nDare it if I may say so myself, but it does have a certain ring to it, doesn't it?.\nAh well..\nBest of luck to you, I'll be back next week to check on your progress.", day.player.name, day.player.store.name);
+                Console.WriteLine("Fantastic, {0}'s {1}!\nDare it if I may say so myself, but it does have a certain ring to it, doesn't it?.\nAh well...\nBest of luck to you,"+
+                "I'll be back next week to check on your progress."+
+                "\nJust remember, you're starting out with ${2} today and you promised me that you could at least double that by the end of the week."+
+                "\nI expect you to meet that promise, or else...", day.player.name, day.player.store.name, day.player.wallet.currentMoney);
                 Console.ReadLine();
                 day.InitializeFirstDay();
             }
             else if (response == "NO")
             {
                 nameMessage = ("Your name again?");
-                playerstoreMessage = String.Format("And the name of your {0}?", day.player.store.name);
+                playerstoreMessage = String.Format("And the name of your store?");
                 CreateGame();
             }
             else
             {
                 Console.WriteLine("It was a yes or no question.");
                 nameMessage = ("What is your NAME?");
-                playerstoreMessage = String.Format("And what do you want to call your {0}?", day.player.store.name);
+                playerstoreMessage = String.Format("And what do you want to call your STORE?");
                 CreateGame();
             }
         }

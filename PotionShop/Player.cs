@@ -25,7 +25,7 @@ namespace PotionShop
         public int manaPotionBatchSize;
         public int manaPotionMade;
         public int lemonade;
-        public double lemonadePrice;
+        public double lemonadePrice = 0;
         public double healthPotionPrice;
         public double manaPotionPrice;
         public int lemonadeMade;

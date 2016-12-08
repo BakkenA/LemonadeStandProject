@@ -8,9 +8,9 @@ namespace PotionShop
 {
     public class Weather
     {
-        Random random;
+        public Random random;
         public Danger danger = new Danger();
-        //public int[] climate = new int[4] { 0, 1, 2, 3 };
+        public string climate;
         public int currentTemp;        
 
         public int SetTemp()
@@ -49,7 +49,7 @@ namespace PotionShop
                 {
                     todaysClimate = "Rainy";
                 }
-                return todaysClimate;                
+                return todaysClimate;
             }
         }
     }
